@@ -1,0 +1,27 @@
+package com.member.tracking.model;
+
+import com.member.tracking.model.event.NonMemberSigninEvent;
+import lombok.*;
+
+import java.time.Instant;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
+public class NonMemberSigninLogResponse {
+    //private String _id;
+    private String siteType; 	    // 사이트 유형 코드
+    private String name;            // 이름
+    private String mobileNo;        // 휴대폰
+    private String ipAddress; 	    // 클라이언트 IP 주소
+    public String result;           // 로그인 처리 결과
+    public String reason;           // 로그인 처리 결과의 상세 사유 (코드 형태)
+    public String timestamp;        // 로그인 시도 (이벤트 발생 시각)
+    private NonMemberSigninEvent nonMemberSigninEvent;
+    private Instant insDate;
+    private Instant deletedAt;
+
+}

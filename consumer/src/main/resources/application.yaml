@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: member-tracking-consumer
+  profiles: # active: dev
+    include:
+      - kafka # kafka
+      - mongo # mongodb
+  cloud:
+    function:
+      definition: member_signin; nonmember_signin;  # Consumer 함수명
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        member_signin-in-0: # 채널 이름 (기본 규칙: 함수명-in-0)
+          destination: bz_memberlog_request_member_signin # Topic 이름 (예, bz_messagelog_message_event)
+          content-type: application/json
+        nonmember_signin-in-0:
+          destination: bz_memberlog_request_nonmember_signin
+          content-type: application/json
+
+
+server:
+  port: 8081
+
+
