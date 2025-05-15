@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class MemberTrackingApiResponse<T> {
+public class ApiResponse<T> {
     @Builder.Default
     private int resultCode = 0;
 
@@ -15,20 +15,19 @@ public class MemberTrackingApiResponse<T> {
 
     private T data;
 
-    public static <T> MemberTrackingApiResponse<T> ok(T data) {
-        return MemberTrackingApiResponse.<T>builder()
+    public static <T> ApiResponse<T> ok(T data) {
+        return ApiResponse.<T>builder()
                 .data(data)
                 .build();
     }
 
-    public static <T> MemberTrackingApiResponse<T> fail(int resultCode, String message, T data) {
-        return MemberTrackingApiResponse.<T>builder()
+    public static <T> ApiResponse<T> fail(int resultCode, String message, T data) {
+        return ApiResponse.<T>builder()
                 .resultCode(resultCode)
                 .message(message)
                 .data(data)
                 .build();
     }
-
 
     /*
         ApiResponse<T>

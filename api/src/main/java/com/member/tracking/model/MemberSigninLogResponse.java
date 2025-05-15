@@ -12,7 +12,6 @@ import java.time.Instant;
 @Builder
 @ToString
 public class MemberSigninLogResponse {
-    //private String _id;
     private String siteType; 	    // 사이트 유형 코드
     private String memberKey; 	    // 아이디
     private String memberType; 	    // 회원 유형

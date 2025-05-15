@@ -12,7 +12,6 @@ import java.time.Instant;
 @Builder
 @ToString
 public class NonMemberSigninLogResponse {
-    //private String _id;
     private String siteType; 	    // 사이트 유형 코드
     private String name;            // 이름
     private String mobileNo;        // 휴대폰

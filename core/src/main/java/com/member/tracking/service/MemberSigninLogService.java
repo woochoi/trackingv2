@@ -51,13 +51,15 @@ public class MemberSigninLogService {
         return memberSigninLogRepository.findAll();
     }
 
-    public Page<MemberSigninLog> getSigninLogs(int page, int size) {
+
+
+    public Page<MemberSigninLog> pageAllSigninLogs1(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("ins_date").descending());
         return memberSigninLogRepository.findAll(pageable);
     }
 
 
-    public Page<MemberSigninLog> getSigninLogs2(Pageable pageable) {
+    public Page<MemberSigninLog> pageAllSigninLogs2(Pageable pageable) {
         return memberSigninLogRepository.findAll(pageable);
     }
 
