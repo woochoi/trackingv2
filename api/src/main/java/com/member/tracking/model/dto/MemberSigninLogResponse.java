@@ -1,4 +1,4 @@
-package com.member.tracking.model;
+package com.member.tracking.model.dto;
 
 import com.member.tracking.model.event.MemberSigninEvent;
 import lombok.*;

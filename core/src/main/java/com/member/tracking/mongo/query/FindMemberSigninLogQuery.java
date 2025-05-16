@@ -1,4 +1,4 @@
-package com.member.tracking.query;
+package com.member.tracking.mongo.query;
 
 import lombok.*;
 import org.springframework.data.domain.Pageable;

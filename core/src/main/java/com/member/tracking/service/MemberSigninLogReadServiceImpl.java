@@ -1,7 +1,7 @@
 package com.member.tracking.service;
 
 import com.member.tracking.model.entity.MemberSigninLog;
-import com.member.tracking.query.FindMemberSigninLogQuery;
+import com.member.tracking.mongo.query.FindMemberSigninLogQuery;
 import com.member.tracking.repository.MemberSigninLogRepository;
 import com.member.tracking.repository.MongoMemberSigninLogRepository;
 import com.member.tracking.repository.NonMemberSigninLogRepository;

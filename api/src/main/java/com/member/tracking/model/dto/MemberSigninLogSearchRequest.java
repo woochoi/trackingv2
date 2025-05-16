@@ -1,13 +1,12 @@
-package com.member.tracking.model;
+package com.member.tracking.model.dto;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
-public class SigninLogSearchRequest {
+public class MemberSigninLogSearchRequest {
     private String siteType;
     private String memberKey;
     private String result;

@@ -1,4 +1,4 @@
-package com.member.tracking.model;
+package com.member.tracking.model.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

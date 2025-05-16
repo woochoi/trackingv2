@@ -1,6 +1,6 @@
 package com.member.tracking.mapper;
 
-import com.member.tracking.model.MemberSigninLogResponse;
+import com.member.tracking.model.dto.MemberSigninLogResponse;
 import com.member.tracking.model.entity.MemberSigninLog;
 
 public class MemberSigninLogMapper {

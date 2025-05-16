@@ -1,12 +1,12 @@
 package com.member.tracking.controller;
 
-import com.member.tracking.model.ApiResponse;
-import com.member.tracking.model.MemberSigninLogResponse;
-import com.member.tracking.model.SigninLogSearchRequest;
-import com.member.tracking.model.PageResponse;
+import com.member.tracking.model.common.ApiResponse;
+import com.member.tracking.model.dto.MemberSigninLogResponse;
+import com.member.tracking.model.dto.MemberSigninLogSearchRequest;
+import com.member.tracking.model.common.PageResponse;
 import com.member.tracking.model.entity.MemberSigninLog;
 import com.member.tracking.mapper.MemberSigninLogMapper;
-import com.member.tracking.query.FindMemberSigninLogQuery;
+import com.member.tracking.mongo.query.FindMemberSigninLogQuery;
 import com.member.tracking.service.MemberSigninLogReadService;
 import com.member.tracking.service.MemberSigninLogService;
 import lombok.RequiredArgsConstructor;
@@ -53,8 +53,8 @@ public class MemberTrackingRestController {
     }
 
     @GetMapping("/all-signin-log-list-page2") // PageDto
-    public ApiResponse<PageResponse<MemberSigninLogResponse>> pageAllSigninLogs2( // MemberSigninLogResponse
-        SigninLogSearchRequest request
+    public ApiResponse<PageResponse<MemberSigninLogResponse>> pageAllSigninLogs2(
+      MemberSigninLogSearchRequest request
     ) {
         log.info("pageAllSigninLogs2");
 
@@ -92,8 +92,8 @@ public class MemberTrackingRestController {
 
 
     @GetMapping("/all-signin-log-list-page3") // PageDto
-    public ApiResponse<PageResponse<MemberSigninLogResponse>> pageAllSigninLogs3( // MemberSigninLogResponse
-            SigninLogSearchRequest request
+    public ApiResponse<PageResponse<MemberSigninLogResponse>> pageAllSigninLogs3(
+      MemberSigninLogSearchRequest request
     ) {
         log.info("pageAllSigninLogs3");
 

@@ -1,4 +1,4 @@
-package com.member.tracking.model.dto;
+package com.member.tracking.model.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

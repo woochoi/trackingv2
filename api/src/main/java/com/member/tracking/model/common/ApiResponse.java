@@ -1,4 +1,4 @@
-package com.member.tracking.model;
+package com.member.tracking.model.common;
 
 import lombok.*;
 
