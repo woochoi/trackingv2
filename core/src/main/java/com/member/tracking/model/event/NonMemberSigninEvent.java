@@ -1,5 +1,6 @@
 package com.member.tracking.model.event;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.annotation.TypeAlias;
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @TypeAlias("NonMemberSignin")
 public class NonMemberSigninEvent {
+    @NotBlank
     public String type;
     public String userAgent;
     public String osType;
