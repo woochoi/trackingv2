@@ -40,30 +40,4 @@ public class MemberSigninLogService {
         log.info("inserted: {}", result);
     }
 
-
-    /**
-     * 테스트
-     * member_signin_logs 전체를 조회 한다!
-     * 페이징이 필요
-     * @return
-     */
-    public List<MemberSigninLog> getSigninLogs() {
-        return memberSigninLogRepository.findAll();
-    }
-
-
-
-    public Page<MemberSigninLog> pageAllSigninLogs1(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("ins_date").descending());
-        return memberSigninLogRepository.findAll(pageable);
-    }
-
-
-    public Page<MemberSigninLog> pageAllSigninLogs2(Pageable pageable) {
-        return memberSigninLogRepository.findAll(pageable);
-    }
-
-
-
-
 }

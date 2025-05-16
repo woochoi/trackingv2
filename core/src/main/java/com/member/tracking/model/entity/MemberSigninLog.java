@@ -43,7 +43,7 @@ public class MemberSigninLog {
     public String reason;           // 로그인 처리 결과의 상세 사유 (코드 형태)
 
     @Field("login_date")
-    public String timestamp;        // 로그인 시도 (이벤트 발생 시각)
+    public String timestamp;        // 로그인 시도 (이벤트 발생 시각)   "expireAt": new ISODate("2024-11-07T10:32:47.157Z")}}
 
     @Field("detail_log")
     private MemberSigninEvent memberSigninEvent;
