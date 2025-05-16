@@ -4,6 +4,7 @@ import com.member.tracking.model.entity.MemberSigninLog;
 import com.member.tracking.mongo.query.FindMemberSigninLogQuery;
 import com.member.tracking.repository.MemberSigninLogRepository;
 import com.member.tracking.repository.MongoMemberSigninLogRepository;
+import com.member.tracking.repository.MongoNonMemberSigninLogRepository;
 import com.member.tracking.repository.NonMemberSigninLogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,23 +20,15 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class MemberSigninLogReadServiceImpl implements MemberSigninLogReadService {
-
     private final MemberSigninLogRepository memberSigninLogRepository;
     private final NonMemberSigninLogRepository nonMemberSigninLogRepository;
 
     private final MongoMemberSigninLogRepository mongoMemberSigninLogRepository;
+    private final MongoNonMemberSigninLogRepository mongoNonMemberSigninLogRepository;
 
-
-    /**
-     * 테스트
-     * member_signin_logs 전체를 조회 한다!
-     * 페이징이 필요
-     * @return
-     */
     public List<MemberSigninLog> getSigninLogs() {
         return memberSigninLogRepository.findAll();
     }
-
 
     public Page<MemberSigninLog> pageAllSigninLogs1(int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("ins_date").descending());

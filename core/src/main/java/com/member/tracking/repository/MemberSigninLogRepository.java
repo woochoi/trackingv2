@@ -16,7 +16,4 @@ public interface MemberSigninLogRepository extends MongoRepository<MemberSigninL
         클라이언트 IP 주소     ipAddress
         로그인 시도 (이벤트 발생 시각)  timestamp
      */
-
-
-
 }

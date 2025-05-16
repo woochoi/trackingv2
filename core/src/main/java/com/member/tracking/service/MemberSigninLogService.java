@@ -23,7 +23,7 @@ public class MemberSigninLogService {
     private final NonMemberSigninLogRepository nonMemberSigninLogRepository;
 
     /**
-     * 회원 로그인
+     * 회원 로그인 저장
      * @param memberSigninLog
      */
     public void insert(MemberSigninLog memberSigninLog) {
@@ -32,7 +32,7 @@ public class MemberSigninLogService {
     }
 
     /**
-     * 비회원 로그인
+     * 비회원 로그인 저장
      * @param nonMemberSigninLog
      */
     public void insert(NonMemberSigninLog nonMemberSigninLog) {

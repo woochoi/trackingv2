@@ -19,7 +19,7 @@ public class MongoMemberSigninLogRepository {
     private final MongoTemplate mongoTemplate;
     private static final String collectionName = "member_signin_logs";
 
-        /*
+    /*
     public Page<MemberSigninLog> findBy(FindMemberSigninLogQuery qy) { // Pageable pageable)
         Query query = new Query();
 
@@ -28,7 +28,7 @@ public class MongoMemberSigninLogRepository {
         if (qy.getSiteType() != null && !qy.getSiteType().isEmpty()) {
             criteriaList.add(Criteria.where("siteType").is(qy.getSiteType()));
         }
-        if (qy.getMemberKey() != null) {
+        if (qy.getMemberKey() != null && !qy.getMemberKey().isEmpty()) {
             criteriaList.add(Criteria.where("memberKey").is(qy.getMemberKey()));
         }
         if (qy.getResult() != null && !qy.getResult().isEmpty()) {
@@ -59,43 +59,47 @@ public class MongoMemberSigninLogRepository {
 
         return new PageImpl<>(results, qy.getPageable(), total); // results.size()
     }
-*/
+    */
 
 
     public Page<MemberSigninLog> findBy(FindMemberSigninLogQuery request) { // Pageable pageable)
         Query query = new Query();
         List<Criteria> criteriaList = new ArrayList<>();
 
+        // 필수
         if (StringUtils.hasText(request.getSiteType())) {
             criteriaList.add(Criteria.where("siteType").is(request.getSiteType()));
         }
-        if (request.getMemberKey() != null) {
+        // 필수
+        if (StringUtils.hasText(request.getMemberKey())) {
             criteriaList.add(Criteria.where("memberKey").is(request.getMemberKey()));
         }
+
         if (StringUtils.hasText(request.getResult())) {
             criteriaList.add(Criteria.where("result").is(request.getResult()));
         }
+
         if (StringUtils.hasText(request.getIpAddress())) {
             criteriaList.add(Criteria.where("ipAddress").is(request.getIpAddress()));
         }
 
-        //if (request.getFrom() != null || request.getTo() != null) {
-        //    Criteria dateCriteria = Criteria.where("timestamp");
-        //    if (request.getFrom() != null) {
-        //        dateCriteria = dateCriteria.gte(request.getFrom());
-        //    }
-        //    if (request.getTo() != null) {
-        //        dateCriteria = dateCriteria.lte(request.getTo());
-        //    }
-        //    criteriaList.add(dateCriteria);
-       // }
+        if (request.getFrom() != null || request.getTo() != null) {
+            Criteria dateCriteria = Criteria.where("timestamp");
+            if (request.getFrom() != null) {
+                dateCriteria = dateCriteria.gte(request.getFrom());
+            }
+            if (request.getTo() != null) {
+                dateCriteria = dateCriteria.lte(request.getTo());
+            }
+            criteriaList.add(dateCriteria);
+        }
 
         if (!criteriaList.isEmpty()) {
             query.addCriteria(new Criteria().andOperator(criteriaList));
         }
 
         // 페이징, 정렬
-        Pageable pageable = PageRequest.of(request.getPageable().getPageNumber(), request.getPageable().getPageSize(), Sort.by(Sort.Direction.ASC, "_id"));
+        Pageable pageable = PageRequest.of(request.getPageable().getPageNumber(), request.getPageable().getPageSize(), Sort.by(Sort.Direction.DESC, "_id"));
         query.with(pageable);
 
         List<MemberSigninLog> results = mongoTemplate.find(query, MemberSigninLog.class);

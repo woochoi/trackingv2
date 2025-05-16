@@ -31,46 +31,29 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MemberTrackingRestController {
     // Core Service
-    private final MemberSigninLogService memberSigninLogService;
-
     private final MemberSigninLogReadService memberSigninLogReadService;
 
-    // 프론트 조회 어드민 페이지에 제공해 줄 API 를 만든다!
-
-    @GetMapping("/all-signin-log-list")
-    public List<MemberSigninLog> allSigninLogs() { // 니중에 API Response 로 변경한다. (openfeign)
+    @GetMapping("/signin-log-list")
+    public List<MemberSigninLog> getMemberSigninLogList() { // 니중에 API Response 로 변경한다. (openfeign)
         List<MemberSigninLog> logs = memberSigninLogReadService.getSigninLogs();
         return logs;
     }
 
-    @GetMapping("/all-signin-log-list-page1")
-    public Page<MemberSigninLog> pageAllSigninLogs1(@RequestParam(defaultValue = "0") int page) {
+    @GetMapping("/signin-log-list-paging1")
+    public Page<MemberSigninLog> getMemberSigninLogListPaging1(@RequestParam(defaultValue = "0") int page) {
 
-        log.info("pageAllSigninLogs1");
+        log.info("signin-log-list-paging1");
 
         Page<MemberSigninLog> logs = memberSigninLogReadService.pageAllSigninLogs1(page, 10);
         return logs;
     }
 
-    @GetMapping("/all-signin-log-list-page2") // PageDto
-    public ApiResponse<PageResponse<MemberSigninLogResponse>> pageAllSigninLogs2(
+    @GetMapping("/signin-log-list-paging2") // PageDto
+    public ApiResponse<PageResponse<MemberSigninLogResponse>> getMemberSigninLogListPaging2(
       MemberSigninLogSearchRequest request
     ) {
-        log.info("pageAllSigninLogs2");
-
-        LocalDateTime historyDateGte = request.getFrom() != null ? request.getFrom().atStartOfDay() : null;
-        LocalDateTime historyDateLte = request.getTo() != null ? request.getTo().atTime(23, 59, 59) : null;
+        log.info("signin-log-list-paging2");
         Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
-
-        var query = FindMemberSigninLogQuery.builder()
-                .siteType(request.getSiteType())
-                .memberKey(request.getMemberKey())
-                .result(request.getResult())
-                .ipAddress(request.getIpAddress())
-                .from(historyDateGte)
-                .to(historyDateLte)
-                .pageable(pageable)
-                .build();
 
         Page<MemberSigninLog> list = memberSigninLogReadService.pageAllSigninLogs2(pageable);
 
@@ -91,11 +74,11 @@ public class MemberTrackingRestController {
     }
 
 
-    @GetMapping("/all-signin-log-list-page3") // PageDto
-    public ApiResponse<PageResponse<MemberSigninLogResponse>> pageAllSigninLogs3(
+    @GetMapping("/signin-log-list-paging3") // PageDto
+    public ApiResponse<PageResponse<MemberSigninLogResponse>> getMemberSigninLogListPaging3(
       MemberSigninLogSearchRequest request
     ) {
-        log.info("pageAllSigninLogs3");
+        log.info("signin-log-list-paging3");
 
         LocalDateTime historyDateGte = request.getFrom() != null ? request.getFrom().atStartOfDay() : null;
         LocalDateTime historyDateLte = request.getTo() != null ? request.getTo().atTime(23, 59, 59) : null;
@@ -128,7 +111,5 @@ public class MemberTrackingRestController {
 
         return ApiResponse.ok(response);
     }
-
-
 
 }
