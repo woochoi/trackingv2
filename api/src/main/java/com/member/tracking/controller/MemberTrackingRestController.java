@@ -35,6 +35,9 @@ public class MemberTrackingRestController {
 
     @GetMapping("/signin-log-list")
     public List<MemberSigninLog> getMemberSigninLogList() { // 니중에 API Response 로 변경한다. (openfeign)
+
+        log.info("signin-log-list");
+
         List<MemberSigninLog> logs = memberSigninLogReadService.getSigninLogs();
         return logs;
     }
