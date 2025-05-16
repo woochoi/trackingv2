@@ -3,7 +3,7 @@ package com.member.tracking.model;
 import com.member.tracking.model.event.NonMemberSigninEvent;
 import lombok.*;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -20,7 +20,5 @@ public class NonMemberSigninLogResponse {
     public String reason;           // 로그인 처리 결과의 상세 사유 (코드 형태)
     public String timestamp;        // 로그인 시도 (이벤트 발생 시각)
     private NonMemberSigninEvent nonMemberSigninEvent;
-    private Instant insDate;
-    private Instant deletedAt;
-
+    private LocalDateTime insDate;
 }

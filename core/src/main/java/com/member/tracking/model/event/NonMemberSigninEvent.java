@@ -3,6 +3,8 @@ package com.member.tracking.model.event;
 import lombok.*;
 import org.springframework.data.annotation.TypeAlias;
 
+import java.time.LocalDateTime;
+
 @ToString
 @Builder(builderMethodName = "mappingBuilder", builderClassName = "MappingBuilder", toBuilder = true)
 @EqualsAndHashCode(doNotUseGetters = true)
@@ -24,8 +26,8 @@ public class NonMemberSigninEvent {
     public String result;
     public String reason;
     public String siteType;
-    public String timestamp;    // 로그인 시도 (이벤트 발생 시각)
-    public String session;
+    public LocalDateTime timestamp;    // 로그인 시도 (이벤트 발생 시각)
+    public boolean session;
     public String name = "홍";        // 추가
     public String mobileNo = "1234";  // 추가
 }

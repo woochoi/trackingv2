@@ -1,15 +1,13 @@
 package com.member.tracking.model;
 
-import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Data
-public class SigninLogSearchRequest {
+public class NonMemberSigninLogSearchRequest {
     private String siteType;
-    private String memberKey;
+    private String name;
+    private String mobileNo;
     private String result;
     private String ipAddress;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

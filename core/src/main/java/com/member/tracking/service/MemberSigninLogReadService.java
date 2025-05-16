@@ -1,7 +1,7 @@
 package com.member.tracking.service;
 
 import com.member.tracking.model.entity.MemberSigninLog;
-import com.member.tracking.model.query.FindMemberSigninLogQuery;
+import com.member.tracking.query.FindMemberSigninLogQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,7 +1,7 @@
 package com.member.tracking.repository;
 
 import com.member.tracking.model.entity.MemberSigninLog;
-import com.member.tracking.model.query.FindMemberSigninLogQuery;
+import com.member.tracking.query.FindMemberSigninLogQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;

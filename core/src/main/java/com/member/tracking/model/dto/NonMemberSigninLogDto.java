@@ -3,7 +3,7 @@ package com.member.tracking.model.dto;
 import com.member.tracking.model.entity.NonMemberSigninLog;
 import com.member.tracking.model.event.NonMemberSigninEvent;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public class NonMemberSigninLogDto {
     private String _id;
@@ -13,10 +13,9 @@ public class NonMemberSigninLogDto {
     private String ipAddress; 	    // 클라이언트 IP 주소
     public String result;           // 로그인 처리 결과
     public String reason;           // 로그인 처리 결과의 상세 사유 (코드 형태)
-    public String timestamp;        // 로그인 시도 (이벤트 발생 시각)
+    public LocalDateTime timestamp;        // 로그인 시도 (이벤트 발생 시각)
     private NonMemberSigninEvent nonMemberSigninEvent;
-    private Instant insDate;
-    private Instant deletedAt;
+    private LocalDateTime insDate;
 
     public static NonMemberSigninLogDto from(NonMemberSigninLog nonMemberSigninLog) {
         var dto = new NonMemberSigninLogDto();
@@ -30,7 +29,6 @@ public class NonMemberSigninLogDto {
         dto.timestamp = nonMemberSigninLog.getTimestamp();
         dto.nonMemberSigninEvent = nonMemberSigninLog.getNonMemberSigninEvent();
         dto.insDate = nonMemberSigninLog.getInsDate();
-        dto.deletedAt = nonMemberSigninLog.getDeletedAt();
         return dto;
     }
 }

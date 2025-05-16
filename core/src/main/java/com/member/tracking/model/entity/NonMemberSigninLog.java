@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -39,15 +39,15 @@ public class NonMemberSigninLog {
     public String reason;           // 로그인 처리 결과의 상세 사유 (코드 형태)
 
     @Field("login_date")
-    public String timestamp;        // 로그인 시도 (이벤트 발생 시각)
+    public LocalDateTime timestamp;        // 로그인 시도 (이벤트 발생 시각)
 
     @Field("detail_log")
     private NonMemberSigninEvent nonMemberSigninEvent;
 
     @Field("ins_date")
-    private Instant insDate;
+    private LocalDateTime insDate;
 
     @Field("retention_date")
     @Indexed(expireAfter = "0")
-    private Instant deletedAt;
+    private LocalDateTime deletedAt;
 }

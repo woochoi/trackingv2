@@ -1,4 +1,4 @@
-package com.member.tracking.model.mapper;
+package com.member.tracking.mapper;
 
 import com.member.tracking.model.MemberSigninLogResponse;
 import com.member.tracking.model.entity.MemberSigninLog;
@@ -16,7 +16,6 @@ public class MemberSigninLogMapper {
                 .timestamp(log.getTimestamp())
                 .memberSigninEvent(log.getMemberSigninEvent())
                 .insDate(log.getInsDate())
-                .deletedAt(log.getDeletedAt())
                 .build();
     }
 }

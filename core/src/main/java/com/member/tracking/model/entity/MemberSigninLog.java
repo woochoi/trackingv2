@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -43,17 +43,17 @@ public class MemberSigninLog {
     public String reason;           // 로그인 처리 결과의 상세 사유 (코드 형태)
 
     @Field("login_date")
-    public String timestamp;        // 로그인 시도 (이벤트 발생 시각)   "expireAt": new ISODate("2024-11-07T10:32:47.157Z")}}
+    public LocalDateTime timestamp;        // 로그인 시도 (이벤트 발생 시각)   "expireAt": new ISODate("2024-11-07T10:32:47.157Z")}}
 
     @Field("detail_log")
     private MemberSigninEvent memberSigninEvent;
 
     @Field("ins_date")
-    private Instant insDate;
+    private LocalDateTime insDate;
 
     @Field("retention_date")
     @Indexed(expireAfter = "0")
-    private Instant deletedAt;
+    private LocalDateTime deletedAt;
 
 
     // https://www.mongodb.com/ko-kr/docs/manual/tutorial/expire-data/

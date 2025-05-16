@@ -3,10 +3,10 @@ package com.member.tracking.controller;
 import com.member.tracking.model.ApiResponse;
 import com.member.tracking.model.MemberSigninLogResponse;
 import com.member.tracking.model.SigninLogSearchRequest;
-import com.member.tracking.model.dto.PageResponse;
+import com.member.tracking.model.PageResponse;
 import com.member.tracking.model.entity.MemberSigninLog;
-import com.member.tracking.model.mapper.MemberSigninLogMapper;
-import com.member.tracking.model.query.FindMemberSigninLogQuery;
+import com.member.tracking.mapper.MemberSigninLogMapper;
+import com.member.tracking.query.FindMemberSigninLogQuery;
 import com.member.tracking.service.MemberSigninLogReadService;
 import com.member.tracking.service.MemberSigninLogService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Duration;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +45,9 @@ public class MemberTrackingRestController {
 
     @GetMapping("/all-signin-log-list-page1")
     public Page<MemberSigninLog> pageAllSigninLogs1(@RequestParam(defaultValue = "0") int page) {
+
+        log.info("pageAllSigninLogs1");
+
         Page<MemberSigninLog> logs = memberSigninLogReadService.pageAllSigninLogs1(page, 10);
         return logs;
     }
@@ -56,16 +58,11 @@ public class MemberTrackingRestController {
     ) {
         log.info("pageAllSigninLogs2");
 
-        Instant now = Instant.now();
-        //Instant retention = now.plus(Duration.ofMinutes(3));
-        Instant retention = now.plus(Duration.ofDays(1));
+        LocalDateTime historyDateGte = request.getFrom() != null ? request.getFrom().atStartOfDay() : null;
+        LocalDateTime historyDateLte = request.getTo() != null ? request.getTo().atTime(23, 59, 59) : null;
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
 
-        Pageable pageable = PageRequest.of(request.getPage(), request.getSize()); // pageableSort
-
-        Instant historyDateGte = request.getFrom() != null ? request.getFrom() : now;
-        Instant historyDateLte = request.getTo() != null ? request.getTo() : now.plus(Duration.ofDays(1));
-
-        var qy = FindMemberSigninLogQuery.builder()
+        var query = FindMemberSigninLogQuery.builder()
                 .siteType(request.getSiteType())
                 .memberKey(request.getMemberKey())
                 .result(request.getResult())
@@ -98,18 +95,13 @@ public class MemberTrackingRestController {
     public ApiResponse<PageResponse<MemberSigninLogResponse>> pageAllSigninLogs3( // MemberSigninLogResponse
             SigninLogSearchRequest request
     ) {
-        log.info("pageAllSigninLogs2");
+        log.info("pageAllSigninLogs3");
 
-        Instant now = Instant.now();
-        //Instant retention = now.plus(Duration.ofMinutes(3));
-        Instant retention = now.plus(Duration.ofDays(1));
+        LocalDateTime historyDateGte = request.getFrom() != null ? request.getFrom().atStartOfDay() : null;
+        LocalDateTime historyDateLte = request.getTo() != null ? request.getTo().atTime(23, 59, 59) : null;
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
 
-        Pageable pageable = PageRequest.of(request.getPage(), request.getSize()); // pageableSort
-
-        Instant historyDateGte = request.getFrom() != null ? request.getFrom() : now;
-        Instant historyDateLte = request.getTo() != null ? request.getTo() : now.plus(Duration.ofDays(1));
-
-        var qy = FindMemberSigninLogQuery.builder()
+        var query = FindMemberSigninLogQuery.builder()
                 .siteType(request.getSiteType())
                 .memberKey(request.getMemberKey())
                 .result(request.getResult())
@@ -119,9 +111,7 @@ public class MemberTrackingRestController {
                 .pageable(pageable)
                 .build();
 
-        //Page<MemberSigninLog> list = memberSigninLogReadService.pageAllSigninLogs2(pageable);
-        Page<MemberSigninLog> list = memberSigninLogReadService.pageAllSigninLogs3(qy);
-
+        Page<MemberSigninLog> list = memberSigninLogReadService.pageAllSigninLogs3(query);
 
         // 엔티티 → DTO 매핑
         List<MemberSigninLogResponse> content = list.getContent().stream()

@@ -3,6 +3,8 @@ package com.member.tracking.model.event;
 import lombok.*;
 import org.springframework.data.annotation.TypeAlias;
 
+import java.time.LocalDateTime;
+
 @ToString
 @Builder(builderMethodName = "mappingBuilder", builderClassName = "MappingBuilder", toBuilder = true)
 @EqualsAndHashCode(doNotUseGetters = true)
@@ -24,14 +26,15 @@ public class MemberSigninEvent {
     public String result;       // 로그인 처리 결과
     public String reason;       // 로그인 처리 결과의 상세 사유 (코드 형태)
     public String siteType;     // 사이트 유형 코드
-    public String timestamp;    // 로그인 시도 (이벤트 발생 시각)
-    public String auto;
+    public LocalDateTime timestamp;    // 로그인 시도 (이벤트 발생 시각)
+    public boolean auto;
     public String signinUiType; // 로그인 UI 유형
+    public boolean legacy;
     public String signinType;   // 로그인 방식
     public String memberKey;    // 아이디
+    public boolean session;
+    public boolean hermes;
     public String memberType;   // 회원 유형
-    public String session;
-    public String hermes;
     public String signinProcType; // 로그인 처리 프로세스 유형
 }
 
