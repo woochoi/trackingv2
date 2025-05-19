@@ -1,14 +1,18 @@
 package com.member.tracking.controller;
 
+import com.member.tracking.mapper.NonMemberSigninLogMapper;
 import com.member.tracking.model.common.ApiResponse;
 import com.member.tracking.model.dto.MemberSigninLogResponse;
 import com.member.tracking.model.dto.MemberSigninLogSearchRequest;
 import com.member.tracking.model.common.PageResponse;
+import com.member.tracking.model.dto.NonMemberSigninLogResponse;
+import com.member.tracking.model.dto.NonMemberSigninLogSearchRequest;
 import com.member.tracking.model.entity.MemberSigninLog;
 import com.member.tracking.mapper.MemberSigninLogMapper;
+import com.member.tracking.model.entity.NonMemberSigninLog;
 import com.member.tracking.mongo.query.FindMemberSigninLogQuery;
+import com.member.tracking.mongo.query.FindNonMemberSigninLogQuery;
 import com.member.tracking.service.MemberSigninLogReadService;
-import com.member.tracking.service.MemberSigninLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -77,11 +81,13 @@ public class MemberTrackingRestController {
     }
 
 
-    @GetMapping("/signin-log-list-paging3") // PageDto
-    public ApiResponse<PageResponse<MemberSigninLogResponse>> getMemberSigninLogListPaging3(
-      MemberSigninLogSearchRequest request
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/member-signin-log-list-paging")
+    public ApiResponse<PageResponse<MemberSigninLogResponse>> getMemberSigninLogListPaging (
+            MemberSigninLogSearchRequest request
     ) {
-        log.info("signin-log-list-paging3");
+        log.info("member-signin-log-list-paging");
 
         LocalDateTime historyDateGte = request.getFrom() != null ? request.getFrom().atStartOfDay() : null;
         LocalDateTime historyDateLte = request.getTo() != null ? request.getTo().atTime(23, 59, 59) : null;
@@ -97,7 +103,7 @@ public class MemberTrackingRestController {
                 .pageable(pageable)
                 .build();
 
-        Page<MemberSigninLog> list = memberSigninLogReadService.pageAllSigninLogs3(query);
+        Page<MemberSigninLog> list = memberSigninLogReadService.getMemberSigninLogs(query);
 
         // 엔티티 → DTO 매핑
         List<MemberSigninLogResponse> content = list.getContent().stream()
@@ -114,5 +120,47 @@ public class MemberTrackingRestController {
 
         return ApiResponse.ok(response);
     }
+
+
+    @GetMapping("/nonmeber-signin-log-list-paging")
+    public ApiResponse<PageResponse<NonMemberSigninLogResponse>> getNonMemberSigninLogListPaging (
+            NonMemberSigninLogSearchRequest request
+    ) {
+        log.info("nonmeber-signin-log-list-paging");
+
+        LocalDateTime historyDateGte = request.getFrom() != null ? request.getFrom().atStartOfDay() : null;
+        LocalDateTime historyDateLte = request.getTo() != null ? request.getTo().atTime(23, 59, 59) : null;
+        Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
+
+        var query = FindNonMemberSigninLogQuery.builder()
+                .siteType(request.getSiteType())
+                .name(request.getName())
+                .mobileNo((request.getMobileNo() != null) ? request.getMobileNo() : "")
+                .result(request.getResult())
+                .ipAddress(request.getIpAddress())
+                .from(historyDateGte)
+                .to(historyDateLte)
+                .pageable(pageable)
+                .build();
+
+        Page<NonMemberSigninLog> list = memberSigninLogReadService.getNonMemberSigninLogs(query);
+
+        // 엔티티 → DTO 매핑
+        List<NonMemberSigninLogResponse> content = list.getContent().stream()
+                .map(NonMemberSigninLogMapper::toResponse)
+                .collect(Collectors.toList());
+
+        PageResponse<NonMemberSigninLogResponse> response = new PageResponse<>(
+                content,
+                list.getNumber(),
+                list.getSize(),
+                list.getTotalElements(),
+                list.getTotalPages()
+        );
+
+        return ApiResponse.ok(response);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 }

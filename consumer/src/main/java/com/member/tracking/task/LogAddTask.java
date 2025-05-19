@@ -5,7 +5,7 @@ import com.member.tracking.model.entity.MemberSigninLog;
 import com.member.tracking.model.entity.NonMemberSigninLog;
 import com.member.tracking.model.event.MemberSigninEvent;
 import com.member.tracking.model.event.NonMemberSigninEvent;
-import com.member.tracking.service.MemberSigninLogService;
+import com.member.tracking.service.MemberSigninLogInsertService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class LogAddTask {
 
-    private final MemberSigninLogService memberSigninLogService;
+    private final MemberSigninLogInsertService memberSigninLogInsertService;
 
     // 회원 로그인
     public void processEvent(MemberSigninEvent event) {
@@ -41,7 +41,7 @@ public class LogAddTask {
                 .deletedAt(retention)
                 .build();
 
-        memberSigninLogService.insert(memberSigninLog);
+        memberSigninLogInsertService.insert(memberSigninLog);
     }
 
     // 비회원 로그인
@@ -67,7 +67,7 @@ public class LogAddTask {
                 .deletedAt(retention)
                 .build();
 
-        memberSigninLogService.insert(nonMemberSigninLog);
+        memberSigninLogInsertService.insert(nonMemberSigninLog);
     }
 
 }

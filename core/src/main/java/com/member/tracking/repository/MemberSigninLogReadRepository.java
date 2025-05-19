@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class MongoMemberSigninLogRepository {
+public class MemberSigninLogReadRepository {
     private final MongoTemplate mongoTemplate;
     private static final String collectionName = "member_signin_logs";
 
@@ -60,7 +60,6 @@ public class MongoMemberSigninLogRepository {
         return new PageImpl<>(results, qy.getPageable(), total); // results.size()
     }
     */
-
 
     public Page<MemberSigninLog> findBy(FindMemberSigninLogQuery request) { // Pageable pageable)
         Query query = new Query();
@@ -107,6 +106,5 @@ public class MongoMemberSigninLogRepository {
 
         return new PageImpl<>(results, pageable, total);
     }
-
 
 }
