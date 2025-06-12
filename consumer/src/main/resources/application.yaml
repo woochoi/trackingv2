@@ -16,10 +16,13 @@ spring:
         member_signin-in-0: # 채널 이름 (기본 규칙: 함수명-in-0)
           destination: bz_memberlog_request_member_signin # Topic 이름 (예, bz_messagelog_message_event)
           content-type: application/json
+          consumer:
+            group: memberlog1
         nonmember_signin-in-0:
           destination: bz_memberlog_request_nonmember_signin
           content-type: application/json
-
+          consumer:
+            group: memberlog2
 
 server:
   port: 8081
